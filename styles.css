@@ -5,6 +5,11 @@
     --blue: #61a6ea;
     --white: #f0eeda;
     --gray: #252525;
+    --Lgray: #858585;
+    --Lred: #ea61616b;
+    --Lyellow: #eebf5279;
+    --Lgreen: #57d2577a;
+    --Lblue: #61a6ea77;
 }
 
 *{
@@ -34,21 +39,21 @@ body{
     height: 70%;
 }
 
-.intro h2{
+ h2{
     font-family: 'Rouge Script', cursive;
     grid-row-start: 3;
     grid-column: span 10;
 }
-.intro h1{
+h1{
     grid-row-start: 4;
     grid-column: span 10;
 }
-.intro p{
+p{
     grid-row-start: 7;
     grid-column: span 10;
     font-size: 80%;
 }
-.intro ol{
+ol{
     grid-row-start: 8;
     grid-column: 3/10;
     font-size: 60%;
@@ -59,7 +64,7 @@ button{
     grid-column-start: 4;
     background: none;
     font-family: inherit;
-    border: 1px dotted #858585;
+    border: 1px dotted var(--Lgray);
     height: 50px;
     width: 50px;
     border-radius: 100%;
@@ -85,9 +90,19 @@ button:nth-of-type(2){ grid-column-start:7; }
 h4{
     position: absolute;
     top: 7%;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 300%;
+    font-family: 'Cutive Mono', monospace;
+    font-size: 200%;
     font-weight: 100;
+}
+
+.underLine{
+    position: absolute;
+    top: 17%;
+    height: 0;
+    width: 0;
+    border: 1px dashed  var(--Lgray);
+    border-radius: 100%;
+    transition: width 300ms ease-in-out;
 }
 
 .colors{
@@ -112,7 +127,6 @@ h4{
     width:100%;
 }
 
-
 .flip{
     animation: jump  0.5s cubic-bezier(0.48, 0.16, 0.5, 0.75) alternate 1;
 }
@@ -122,12 +136,13 @@ h4{
         transform: translate(0, -65vh) rotate(720deg);
         width: 50px;
         height: 50px;
+        border-radius: 5px;
     }
 }
 
 @media screen and (max-width: 600px){ 
     .main{width: 90%;} 
-    h4{font-size: 200%;}
+    h4{font-size: 150%;}
 }
 
 
