@@ -18,7 +18,7 @@ $(document).ready(function(){
     let blueSound = new Audio();
 
     //sound effects
-    countSound.src = 'Sounds/321.wav';
+    countSound.src = 'Sounds/tick.wav';
     yellowSound.src = 'Sounds/snare.wav';
     redSound.src = 'Sounds/hihat.wav';
     greenSound.src = 'Sounds/tom.wav';
@@ -46,23 +46,16 @@ $(document).ready(function(){
                 $('h4').html('Stage '+stage);
                 clearInterval(countDown);
                 getColor();
-                colorRoll(1000);
+                colorRoll();
             }
             counter--;
         }, 1000);
     });
 
+    $('.restart').on('click', () => location.reload());
+
     //IF it's the player's turn.. on A, S, K or L press
     $(document).keypress(function(e){
-        if (colorArr.length <= 3) phase = 1
-        else if (colorArr.length <= 6 && colorArr.length >3) phase = 2;
-        else if (colorArr.length <= 9 && colorArr.length >6) phase = 3;
-        else phase = 4;
-
-        if (phase == 1) speed = 500;
-        else if (phase == 2) speed = 350;
-        else if (phase == 3) speed = 200;
-        else speed = 100;
         if(playerReady == true && [97, 115, 108, 107].indexOf(e.keyCode) != -1){
             if(e.keyCode == 97) colorInput = 'red';
             else if(e.keyCode == 115) colorInput = 'yellow';
@@ -77,9 +70,9 @@ $(document).ready(function(){
 
                 //flipAnimation is the main animation function, arguments are color, speed, isPlayerTurn and isCorrect
                 inputArr = [];
-                flipAnimation(colorInput, 500, phase, true, false, false);
+                flipAnimation(colorInput, speed, phase, true, false, false);
                 $('.underLine').css('width', '0');
-                if (!hardMode) setTimeout(() => colorRoll(1000),1000);
+                if (!hardMode) setTimeout(() => colorRoll(),1000);
                 // if hardmode, reset to intro
                 else{
                     $('h4').html('Game Over');
@@ -91,7 +84,7 @@ $(document).ready(function(){
             else{
                 //if end of the array
                 if (colorArr.length == inputArr.length){
-                    flipAnimation(colorInput, 500, phase, true, true ,true);
+                    flipAnimation(colorInput, speed, phase, true, true ,true);
                     inputArr = [];
 
                     //if stage 20, victory
@@ -100,7 +93,7 @@ $(document).ready(function(){
                             $('h4').hide().html('Victory!').fadeIn(2000);
                             $('.underLine').css('width', '0');
                             countSound.play();
-                        },1000);
+                        },speed*2);
                         setTimeout(() => reset(),4000);
                     }
 
@@ -108,16 +101,16 @@ $(document).ready(function(){
                         getColor();
                         stage++;
                         setTimeout(() => {
-                            colorRoll(1000);
+                            colorRoll();
                             if (stage == 20) $('h4').hide().html('Final Stage').fadeIn(2000);
                             else $('h4').hide().html('Stage '+stage).fadeIn(2000);
                             $('.underLine').css('width', '0');
                             $('img').attr('src', 'Images/simon.png');
                             countSound.play();
-                        },1000);
+                        },speed*2);
                     }
                 }
-                else flipAnimation(colorInput, 500, phase, true, true, false);
+                else flipAnimation(colorInput, speed, phase, true, true, false);
             }
         }
     });
@@ -145,10 +138,27 @@ $(document).ready(function(){
     }
 
     //function to execute the color array in series of animations
-    function colorRoll(ms){
+    function colorRoll(){
+        // change game phase depending on colorArr length
+        if (colorArr.length <= 5) {
+            phase = 1;
+            speed = 500;
+        }
+        else if (colorArr.length <= 10 && colorArr.length >5) {
+            phase = 2;
+            speed = 400;
+        }
+        else if (colorArr.length <= 15 && colorArr.length >10) {
+            phase = 3;
+            speed = 300;
+        }
+        else {
+            phase = 4;
+            speed = 250;
+        }
         let counter = 0;
         let roll = setInterval(() => {
-            flipAnimation(colorArr[counter], 500, phase, false, true, false);
+            flipAnimation(colorArr[counter], speed, phase, false, true, false);
             counter++;
             playerReady = false;
             if(counter == colorArr.length) {
@@ -158,18 +168,17 @@ $(document).ready(function(){
                     $('.underLine').css('width', 'inherit');
                     $('img').attr('src', 'Images/simon.png');
                     countSound.play();
-                }, 1000);
+                }, speed*2);
             }
-        }, ms);
+        }, speed*2);
     }
 
     //animation function (color, speed, phase player'sTurn? isCorrect lastPlay)
-    function flipAnimation(id, speed, phase, isPlayer, isCorrect, lastPlay){
+    function flipAnimation(id, spd, phase, isPlayer, isCorrect, lastPlay){
         playerReady = false;
-        console.log(phase);
         //animate the respective key
-        $('.'+id).css('animation', 'jump'+phase+' '+speed+'ms cubic-bezier(0.48, 0.16, 0.5, 0.75) alternate 2');
-        $('.'+id).css('transition', 'color '+speed*2+'ms cubic-bezier(0.48, 0.16, 0.5, 0.75)');
+        $('.'+id).css('animation', 'jump'+phase+' '+spd+'ms cubic-bezier(0.48, 0.16, 0.5, 0.75) alternate 2');
+        $('.'+id).css('transition', 'color '+spd*2+'ms cubic-bezier(0.48, 0.16, 0.5, 0.75)');
         
         //dance moves
         while(random == pose){
@@ -178,7 +187,7 @@ $(document).ready(function(){
         pose = random;
         $('img').attr('src', 'Images/simon'+pose+'.png');
 
-        if (phase == 3) {
+        if (phase == 4) {
             $('img').css({
                 'height': '30%',
                 'top': '50%'
@@ -209,7 +218,7 @@ $(document).ready(function(){
             $('.'+id).css('animation', '').css('background-color', '');
             if(isPlayer && isCorrect) playerReady = true;
             if (lastPlay) playerReady = false;
-        }, speed*1.7);
+        }, spd*1.7);
     }
 
     //reset after winning or losing in hard mode

@@ -110,6 +110,18 @@ h4{
     transition: width 300ms ease-in-out;
 }
 
+.restart{
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 70%;
+    padding: 3px;
+    margin: 7px;
+    border: 1px dashed var(--gray);
+    cursor: pointer;
+    border-radius: 2px;
+}
+
 .colors{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -138,15 +150,6 @@ h4{
     }
 }
 
-@keyframes jump3{
-    100%{
-        transform: translate(0, -50vh) rotate(720deg);
-        width: 50px;
-        height: 50px;
-        border-radius: 5px;
-    }
-}
-
 @keyframes jump2{
     10%{
         width: 5px;
@@ -154,11 +157,21 @@ h4{
         border-radius: 100%;
     }
     100%{
-        transform: translate(0, -65vh) rotate(720deg);
-        width: 100px;
-        height: 100px;
+        transform: translate(0, -35vh) rotate(720deg);
+        width: 50px;
+        height: 50px;
     }
 }
+
+@keyframes jump3{
+    100%{
+        transform: translate(0, -35vh) rotate(720deg);
+        width: 75px;
+        height: 75px;
+        border-radius: 5px;
+    }
+}
+
 @keyframes jump4{
     100%{
         transform: translate(0,-1vh);
