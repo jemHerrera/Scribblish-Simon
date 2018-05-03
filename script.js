@@ -23,7 +23,7 @@ $(document).ready(function(){
     redSound.src = 'Sounds/hihat.wav';
     greenSound.src = 'Sounds/tom.wav';
     blueSound.src = 'Sounds/switchphase.wav';
-    
+
 
     //game start button
     $('button').on('click', function(){
@@ -55,63 +55,23 @@ $(document).ready(function(){
     $('.restart').on('click', () => location.reload());
 
     //IF it's the player's turn.. on A, S, K or L press
-    $(document).keypress(function(e){
+    $(document).keypress((e) =>{
         if(playerReady == true && [97, 115, 108, 107].indexOf(e.keyCode) != -1){
             if(e.keyCode == 97) colorInput = 'red';
             else if(e.keyCode == 115) colorInput = 'yellow';
             else if(e.keyCode == 108) colorInput = 'blue';
             else colorInput = 'green';
+            execute();
+        }
+    });
 
-            //add player input to the input array and compare with the 'random' colorArray
-            inputArr.push(colorInput);
-
-            //if player made a mistake
-            if (colorArr[inputArr.length-1] != colorInput) {
-
-                //flipAnimation is the main animation function, arguments are color, speed, isPlayerTurn and isCorrect
-                inputArr = [];
-                flipAnimation(colorInput, speed, phase, true, false, false);
-                $('.underLine').css('width', '0');
-                if (!hardMode) setTimeout(() => colorRoll(),1000);
-                // if hardmode, reset to intro
-                else{
-                    $('h4').html('Game Over');
-                    setTimeout(() => reset(),4000);
-                }
-            }
-
-            //if correctly played
-            else{
-                //if end of the array
-                if (colorArr.length == inputArr.length){
-                    flipAnimation(colorInput, speed, phase, true, true ,true);
-                    inputArr = [];
-
-                    //if stage 20, victory
-                    if (colorArr.length == 20){
-                        setTimeout(() => {
-                            $('h4').hide().html('Victory!').fadeIn(2000);
-                            $('.underLine').css('width', '0');
-                            countSound.play();
-                        },speed*2);
-                        setTimeout(() => reset(),4000);
-                    }
-
-                    else{
-                        getColor();
-                        stage++;
-                        setTimeout(() => {
-                            colorRoll();
-                            if (stage == 20) $('h4').hide().html('Final Stage').fadeIn(2000);
-                            else $('h4').hide().html('Stage '+stage).fadeIn(2000);
-                            $('.underLine').css('width', '0');
-                            $('img').attr('src', 'Images/simon.png');
-                            countSound.play();
-                        },speed*2);
-                    }
-                }
-                else flipAnimation(colorInput, speed, phase, true, true, false);
-            }
+    $('.keys').children().on('click', (e) => {
+        if (playerReady == true){
+            if ($(e.target).text() == 'A') colorInput = 'red';
+            else if ($(e.target).text() == 'S') colorInput = 'yellow';
+            else if ($(e.target).text() == 'K') colorInput = 'green';
+            else colorInput = 'blue';
+            execute();
         }
     });
 
@@ -179,7 +139,7 @@ $(document).ready(function(){
         //animate the respective key
         $('.'+id).css('animation', 'jump'+phase+' '+spd+'ms cubic-bezier(0.48, 0.16, 0.5, 0.75) alternate 2');
         $('.'+id).css('transition', 'color '+spd*2+'ms cubic-bezier(0.48, 0.16, 0.5, 0.75)');
-        
+
         //dance moves
         while(random == pose){
             random = Math.floor((Math.random()*4)+1);
@@ -205,12 +165,12 @@ $(document).ready(function(){
             else if (id == 'yellow') yellowSound.play();
             else if (id == 'blue') blueSound.play();
             else greenSound.play();
-            }        
+            }
         else {
             $('.'+id).css('background-color', 'none');
             $('img').attr('src', 'Images/simon5.png');
         }
-        
+
         //after few moments, remove the applied css style to reset and set playerReady
         // if not player's turn yet, player can't make any key inputs
         // if player is incorrect, a colorless animation will display
@@ -241,5 +201,59 @@ $(document).ready(function(){
         pose = 0;
         random = 0;
     }
+
+    //execution on player input
+    function execute(){
+        //add player input to the input array and compare with the 'random' colorArray
+        inputArr.push(colorInput);
+        //if player made a mistake
+        if (colorArr[inputArr.length-1] != colorInput) {
+
+            //flipAnimation is the main animation function, arguments are color, speed, isPlayerTurn and isCorrect
+            inputArr = [];
+            flipAnimation(colorInput, speed, phase, true, false, false);
+            $('.underLine').css('width', '0');
+            if (!hardMode) setTimeout(() => colorRoll(),1000);
+            // if hardmode, reset to intro
+            else{
+                $('h4').html('Game Over');
+                setTimeout(() => reset(),4000);
+            }
+        }
+        //if correctly played
+        else{
+            //if end of the array
+            if (colorArr.length == inputArr.length){
+                flipAnimation(colorInput, speed, phase, true, true ,true);
+                inputArr = [];
+
+                //if stage 20, victory
+                if (colorArr.length == 20){
+                    setTimeout(() => {
+                        $('h4').hide().html('Victory!').fadeIn(2000);
+                        $('.underLine').css('width', '0');
+                        countSound.play();
+                    },speed*2);
+                    setTimeout(() => reset(),4000);
+                }
+
+                else{
+                    getColor();
+                    stage++;
+                    setTimeout(() => {
+                        colorRoll();
+                        if (stage == 20) $('h4').hide().html('Final Stage').fadeIn(2000);
+                        else $('h4').hide().html('Stage '+stage).fadeIn(2000);
+                        $('.underLine').css('width', '0');
+                        $('img').attr('src', 'Images/simon.png');
+                        countSound.play();
+                    },speed*2);
+                }
+            }
+            else flipAnimation(colorInput, speed, phase, true, true, false);
+        }
+    }
 });
+
+
 

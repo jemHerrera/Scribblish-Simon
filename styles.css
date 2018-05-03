@@ -142,6 +142,11 @@ h4{
     flex-direction:row;
     justify-content: space-around;
     width:100%;
+
+}
+
+.keys div{
+    cursor: pointer;
 }
 
 @keyframes jump1{
@@ -178,8 +183,8 @@ h4{
     }
 }
 
-@media screen and (max-width: 600px){ 
-    .main{width: 90%;} 
+@media screen and (max-width: 600px){
+    .main{width: 90%;}
     h4{font-size: 150%;}
 }
 
