@@ -9,23 +9,23 @@
         <script src="script.js"></script>
     </head>
     <body>
-        <img src='Images/simon.png' class='simon'>
         <div class="intro">
+            <img src='Images/simon.png' class='simon'>
             <h2>Let's Play</h2>
             <h1>The Simon Game</h1>
-            <p>Rules of the Game</p>
             <ol>
-                <li>Memorize and repeat after beat patterns</li>
-                <li>Beats are represented by A, S, K and L keys</li>
-                <li>Win the game at stage 20</li>
-                <li>Hard mode restarts the game if you fail once</li>
+                <li>Memorize and repeat after beat patterns using ASKL keys</li>
+                <li>Win the game at stage 15</li>
+                <li>Strict mode resets the game upon failure</li>
             </ol>
-            <button>Start</button>
-            <button>Hard</button>
+            <div class='button-wrapper'>
+                    <button>Start</button>
+                    <button>Strict</button>
+                    <button class='restart'>Reset</button>
+            </div>
         </div>
         <div class="main">
             <h4></h4>
-            <div class="underLine"></div>
             <section class="colors">
                 <div id="red" class="red"></div>
                 <div id="yellow" class="yellow"></div>
@@ -38,7 +38,6 @@
                     <div>K</div>
                     <div>L</div>
             </section>
-            <div class='restart'>Main</div>
         </div>
     </body>
 </html>

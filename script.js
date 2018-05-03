@@ -18,21 +18,19 @@ $(document).ready(function(){
     let blueSound = new Audio();
 
     //sound effects
-    countSound.src = 'Sounds/tick.wav';
+    countSound.src = 'Sounds/tom.wav';
     yellowSound.src = 'Sounds/snare.wav';
     redSound.src = 'Sounds/hihat.wav';
-    greenSound.src = 'Sounds/tom.wav';
+    greenSound.src = 'Sounds/tick.wav';
     blueSound.src = 'Sounds/switchphase.wav';
 
 
     //game start button
     $('button').on('click', function(){
-        if($(this).text() == 'Hard'){
-            hardMode = true;
-            $('body').css('background-color', '#e9d9ad');
-        }
-        $('.intro').css('display', 'none');
-        $('.main').css('display', 'flex');
+        if($(this).text() == 'Strict') hardMode = true;
+        $(this).css('background-color', '#e9d9ad');
+        $('button').css('display', 'none');
+        $('.restart').fadeIn(1000);
 
         //countdown timer, player must not be able to do anything on this phase
         let counter = 3;
@@ -108,13 +106,13 @@ $(document).ready(function(){
             phase = 2;
             speed = 400;
         }
-        else if (colorArr.length <= 15 && colorArr.length >10) {
+        else if (colorArr.length <= 14 && colorArr.length >10) {
             phase = 3;
             speed = 300;
         }
         else {
             phase = 4;
-            speed = 250;
+            speed = 240;
         }
         let counter = 0;
         let roll = setInterval(() => {
@@ -149,8 +147,9 @@ $(document).ready(function(){
 
         if (phase == 4) {
             $('img').css({
-                'height': '30%',
-                'top': '50%'
+                'position': 'absolute',
+                'height': '20%',
+                'top': '60%'
             });
             $('body').css('background-color', 'var(--L'+id+')');
         }
@@ -181,27 +180,6 @@ $(document).ready(function(){
         }, spd*1.7);
     }
 
-    //reset after winning or losing in hard mode
-    function reset(){
-        $('img').attr('src', 'Images/simon.png');
-        $('body').css('background-color', 'var(--white)');
-        $('.intro').css('display', 'grid');
-        $('.main').css('display', 'none');
-        $('h4').html('');
-        $('img').css({
-            'height': '7%',
-            'top': '13%'
-        });
-        playerReady = false;
-        hardMode = false;
-        colorArr = [];
-        stage = 1;
-        phase = 1;
-        speed = 500;
-        pose = 0;
-        random = 0;
-    }
-
     //execution on player input
     function execute(){
         //add player input to the input array and compare with the 'random' colorArray
@@ -216,8 +194,8 @@ $(document).ready(function(){
             if (!hardMode) setTimeout(() => colorRoll(),1000);
             // if hardmode, reset to intro
             else{
-                $('h4').html('Game Over');
-                setTimeout(() => reset(),4000);
+                $('h4').hide().html('Game Over').fadeIn(2000);
+                setTimeout(() =>  location.reload(), 4000);
             }
         }
         //if correctly played
@@ -227,14 +205,14 @@ $(document).ready(function(){
                 flipAnimation(colorInput, speed, phase, true, true ,true);
                 inputArr = [];
 
-                //if stage 20, victory
-                if (colorArr.length == 20){
+                //if stage 15, victory
+                if (colorArr.length == 15){
                     setTimeout(() => {
                         $('h4').hide().html('Victory!').fadeIn(2000);
                         $('.underLine').css('width', '0');
                         countSound.play();
                     },speed*2);
-                    setTimeout(() => reset(),4000);
+                    setTimeout(() =>  location.reload(), 4000);
                 }
 
                 else{
@@ -242,7 +220,7 @@ $(document).ready(function(){
                     stage++;
                     setTimeout(() => {
                         colorRoll();
-                        if (stage == 20) $('h4').hide().html('Final Stage').fadeIn(2000);
+                        if (stage == 15) $('h4').hide().html('Final Stage').fadeIn(2000);
                         else $('h4').hide().html('Stage '+stage).fadeIn(2000);
                         $('.underLine').css('width', '0');
                         $('img').attr('src', 'Images/simon.png');
