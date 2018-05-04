@@ -168,6 +168,12 @@ button:focus{ outline: none; }
 }
 
 @keyframes jump3{
+    10%{
+        width: 50px;
+        height: 5px;
+        border-radius: 100%;
+    }
+
     100%{
         transform: translate(0, -35vh) rotate(720deg);
         width: 75px;
