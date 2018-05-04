@@ -173,7 +173,7 @@ button:focus{ outline: none; }
 
 @media screen and (max-width: 768px){
     body{
-        height: 90vh;
+        height: 88vh;
     }
 
     .intro{
@@ -188,7 +188,6 @@ button:focus{ outline: none; }
 
     .main{
         max-width: 90%;
-        height: 60%;
     }
 }
 
@@ -199,10 +198,6 @@ button:focus{ outline: none; }
     }
     .intro{
         height: 37%;
-    }
-
-    .main{
-        height: 63%;
     }
 }
 
