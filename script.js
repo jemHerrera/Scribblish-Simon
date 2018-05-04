@@ -11,18 +11,21 @@ $(document).ready(function(){
     let speed = 500;
     let pose = 0;
     let random = 0;
-    let countSound = new Audio();
-    let yellowSound = new Audio();
-    let redSound = new Audio();
-    let greenSound = new Audio();
-    let blueSound = new Audio();
+
+    //CURRENTLY SOUND EFFECTS ARE COMMENTED-OUT BECAUSE OF BROWSER INCONSISTENCIES
+
+    // let countSound = new Audio();
+    // let yellowSound = new Audio();
+    // let redSound = new Audio();
+    // let greenSound = new Audio();
+    // let blueSound = new Audio();
 
     //sound effects
-    countSound.src = 'Sounds/tom.wav';
-    yellowSound.src = 'Sounds/snare.wav';
-    redSound.src = 'Sounds/hihat.wav';
-    greenSound.src = 'Sounds/tick.wav';
-    blueSound.src = 'Sounds/switchphase.wav';
+    // countSound.src = 'Sounds/tom.wav';
+    // yellowSound.src = 'Sounds/snare.wav';
+    // redSound.src = 'Sounds/hihat.wav';
+    // greenSound.src = 'Sounds/tick.wav';
+    // blueSound.src = 'Sounds/switchphase.wav';
 
 
     //game start button
@@ -35,7 +38,7 @@ $(document).ready(function(){
         //countdown timer, player must not be able to do anything on this phase
         let counter = 3;
         let countDown = setInterval(function(){
-            countSound.play();
+            // countSound.play();
             if (counter >= 1){
                 $('h4').html(counter);
             }
@@ -125,7 +128,7 @@ $(document).ready(function(){
                     playerReady = true;
                     $('.underLine').css('width', 'inherit');
                     $('img').attr('src', 'Images/simon.png');
-                    countSound.play();
+                    // countSound.play();
                 }, speed*2);
             }
         }, speed*2);
@@ -160,10 +163,10 @@ $(document).ready(function(){
             else $('.'+id).css('background-color', 'var(--L'+id+')');
 
             //play sounds
-            if (id == 'red') redSound.play();
-            else if (id == 'yellow') yellowSound.play();
-            else if (id == 'blue') blueSound.play();
-            else greenSound.play();
+            // if (id == 'red') redSound.play();
+            // else if (id == 'yellow') yellowSound.play();
+            // else if (id == 'blue') blueSound.play();
+            // else greenSound.play();
             }
         else {
             $('.'+id).css('background-color', 'none');
@@ -210,7 +213,7 @@ $(document).ready(function(){
                     setTimeout(() => {
                         $('h4').hide().html('Victory!').fadeIn(2000);
                         $('.underLine').css('width', '0');
-                        countSound.play();
+                        // countSound.play();
                     },speed*2);
                     setTimeout(() =>  location.reload(), 4000);
                 }
@@ -224,7 +227,7 @@ $(document).ready(function(){
                         else $('h4').hide().html('Stage '+stage).fadeIn(2000);
                         $('.underLine').css('width', '0');
                         $('img').attr('src', 'Images/simon.png');
-                        countSound.play();
+                        // countSound.play();
                     },speed*2);
                 }
             }
