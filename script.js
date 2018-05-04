@@ -1,4 +1,13 @@
+
 $(document).ready(function(){
+    $('body').css({
+        'transform': 'translate(0, -10px)',
+    }).hide();
+    $('body').css({
+        'transition': 'transform 1s ease-in-out',
+        'transform': 'translate(0, 10px)',
+        'opacity': '1'
+    }).fadeIn(1000);
 
     //variables
     let playerReady = false;
@@ -12,16 +21,16 @@ $(document).ready(function(){
     let pose = 0;
     let random = 0;
 
-    //CURRENTLY SOUND EFFECTS ARE COMMENTED-OUT BECAUSE OF BROWSER INCONSISTENCIES
+    //CURRENTLY SOUND EFFECTS ARE BEING COMMENTED-OUT BECAUSE OF BROWSER INCONSISTENCIES
 
-    // let countSound = new Audio();
+    let countSound = new Audio();
     // let yellowSound = new Audio();
     // let redSound = new Audio();
     // let greenSound = new Audio();
     // let blueSound = new Audio();
 
     //sound effects
-    // countSound.src = 'Sounds/tom.wav';
+    countSound.src = 'Sounds/tom.wav';
     // yellowSound.src = 'Sounds/snare.wav';
     // redSound.src = 'Sounds/hihat.wav';
     // greenSound.src = 'Sounds/tick.wav';
@@ -34,11 +43,16 @@ $(document).ready(function(){
         $(this).css('background-color', '#e9d9ad');
         $('button').css('display', 'none');
         $('.restart').fadeIn(1000);
+        $('.main').css({
+            'grid-template-rows': '12.5% 80% 7.5%',
+            'height': '55%'
+        });
+
 
         //countdown timer, player must not be able to do anything on this phase
         let counter = 3;
         let countDown = setInterval(function(){
-            // countSound.play();
+            countSound.play();
             if (counter >= 1){
                 $('h4').html(counter);
             }
@@ -128,7 +142,7 @@ $(document).ready(function(){
                     playerReady = true;
                     $('.underLine').css('width', 'inherit');
                     $('img').attr('src', 'Images/simon.png');
-                    // countSound.play();
+                    countSound.play();
                 }, speed*2);
             }
         }, speed*2);
@@ -213,7 +227,7 @@ $(document).ready(function(){
                     setTimeout(() => {
                         $('h4').hide().html('Victory!').fadeIn(2000);
                         $('.underLine').css('width', '0');
-                        // countSound.play();
+                        countSound.play();
                     },speed*2);
                     setTimeout(() =>  location.reload(), 4000);
                 }
@@ -227,7 +241,7 @@ $(document).ready(function(){
                         else $('h4').hide().html('Stage '+stage).fadeIn(2000);
                         $('.underLine').css('width', '0');
                         $('img').attr('src', 'Images/simon.png');
-                        // countSound.play();
+                        countSound.play();
                     },speed*2);
                 }
             }
