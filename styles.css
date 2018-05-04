@@ -36,7 +36,7 @@ body{
     /* dimensions and color */
     min-width: 320px;
     width: 100vw;
-    height: 100vh;
+    height: 95vh;
     background-color: var(--white);
 }
 
@@ -181,10 +181,10 @@ button:focus{ outline: none; }
         width: 80%;
         margin: 2%;
     }
-    
+
     .main{
         max-width: 90%;
-        height: 60%;
+        height: 55%;
     }
 }
 
@@ -196,9 +196,9 @@ button:focus{ outline: none; }
     .intro{
         height: 37%;
     }
-    
+
     .main{
-        height: 63%;
+        height: 58%;
     }
 }
 
